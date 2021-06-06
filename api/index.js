@@ -1,5 +1,17 @@
 const BASE_API = "/api/v1";
 
+function checkResource(expenditure) {
+  if (expenditure.autonomous_community === undefined ||
+      expenditure.year === undefined ||
+      expenditure.avg_expenditure_household === undefined ||
+      expenditure.avg_expenditure_person === undefined ||
+      expenditure.porcentual_distribution === undefined) {
+        return false
+  }else{
+      return true
+  }
+}
+
 module.exports.register = function(app, db, initialData) {
 
   // Postman docs
@@ -50,7 +62,8 @@ module.exports.register = function(app, db, initialData) {
       res.sendStatus(400); //bad request
     } else {
       console.info("New POST request to /alcohol-tobacco-exps with body: " + JSON.stringify(newExpenditure, null, 2));
-      if (!newExpenditure.autonomous_community || !newExpenditure.year || !newExpenditure.avg_expenditure_household || !newExpenditure.avg_expenditure_person || !newExpenditure.porcentual_distribution) {
+      //if (!newExpenditure.autonomous_community || !newExpenditure.year || !newExpenditure.avg_expenditure_household || !newExpenditure.avg_expenditure_person || !newExpenditure.porcentual_distribution) {
+      if (!checkResource(newExpenditure)) {
         console.warn("The expenditure " + JSON.stringify(newExpenditure, null, 2) + " is not well-formed, sending 422...");
         res.sendStatus(422); // unprocessable entity
       } else {
@@ -224,7 +237,8 @@ module.exports.register = function(app, db, initialData) {
       res.sendStatus(400); // bad request
     } else {
       console.info(`New PUT request to /alcohol-tobacco-exps/${autonomous_community}/${year} with data ` + JSON.stringify(updatedExpenditure, null, 2));
-      if (!updatedExpenditure.autonomous_community || !updatedExpenditure.year || !updatedExpenditure.avg_expenditure_household || !updatedExpenditure.avg_expenditure_person || !updatedExpenditure.porcentual_distribution) {
+      //if (!updatedExpenditure.autonomous_community || !updatedExpenditure.year || !updatedExpenditure.avg_expenditure_household || !updatedExpenditure.avg_expenditure_person || !updatedExpenditure.porcentual_distribution) {
+      if (!checkResource(updatedExpenditure)) {
         console.warn("The expenditure " + JSON.stringify(updatedExpenditure, null, 2) + " is not well-formed, sending 422...");
         res.sendStatus(422); // unprocessable entity
       } else {
