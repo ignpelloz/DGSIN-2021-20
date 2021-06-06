@@ -1,12 +1,12 @@
 # DGSIN-2021-20
 
-### Recurso base:
+### Recurso base
 
 ```console
 .../api/v1/alcohol-tobacco-exps
 ```
 
-### Ejemplo de un dato:
+### Ejemplo de un recurso concreto
 
 ```json
 {"autonomous_community": "Andalucia","year": 2019,"avg_expenditure_household": 549.31,"avg_expenditure_person": 211.54,"porcentual_distribution": 2}
@@ -38,7 +38,7 @@ GET .../api/v1/alcohol-tobacco-exps
 
 ### Obtener todos los recursos de Andalucia
 
-#### Petición:
+#### Petición
 
 ```console
 GET .../api/v1/alcohol-tobacco-exps/Andalucia
