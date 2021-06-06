@@ -1,14 +1,24 @@
 const BASE_API = "/api/v1";
 
-function checkResource(expenditure) {
+function checkResource(expenditure) { // Uisng '!' is not enough as it leaves out 0 (which is a valid value)
   if (expenditure.autonomous_community === undefined ||
-      expenditure.year === undefined ||
-      expenditure.avg_expenditure_household === undefined ||
-      expenditure.avg_expenditure_person === undefined ||
-      expenditure.porcentual_distribution === undefined) {
-        return false
-  }else{
-      return true
+    expenditure.year === undefined ||
+    expenditure.avg_expenditure_household === undefined ||
+    expenditure.avg_expenditure_person === undefined ||
+    expenditure.porcentual_distribution === undefined ||
+    expenditure.autonomous_community === null ||
+    expenditure.year === null ||
+    expenditure.avg_expenditure_household === null ||
+    expenditure.avg_expenditure_person === null ||
+    expenditure.porcentual_distribution === null ||
+    String(expenditure.autonomous_community).trim() === "" ||
+    String(expenditure.year).trim() === "" ||
+    String(expenditure.avg_expenditure_household).trim() === "" ||
+    String(expenditure.avg_expenditure_person).trim() === "" ||
+    String(expenditure.porcentual_distribution).trim() === "") {
+    return false
+  } else {
+    return true
   }
 }
 
@@ -32,7 +42,7 @@ module.exports.register = function(app, db, initialData) {
           console.info("Adding data to empty DB");
           db.insert(initialData);
           res.sendStatus(201); // created
-        }else{
+        } else {
           console.debug(`The database contains ${expenditures.length} expenditures. Nothing to do`);
           res.sendStatus(200);
         }
