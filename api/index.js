@@ -88,7 +88,6 @@ module.exports.register = function(app, db, initialData) {
             res.sendStatus(500);
           } else {
             if (expenditures.length > 0) {
-              // console.warn("A resource already exists for autonomous_community: " + " and year: " + year + " sending 409...");
               console.warn(`A resource already exists for autonomous_community: ${autonomous_community} and year: ${year} sending 409...`);
               res.sendStatus(409); // conflict
             } else {
@@ -133,7 +132,6 @@ module.exports.register = function(app, db, initialData) {
     console.warn("New PUT request to /alcohol-tobacco-exps/:autonomous_community, sending 405...");
     res.sendStatus(405); // method not allowed
   });
-
 
   // GET a specific resource (matching autonomous_community)
   app.get(BASE_API + "/alcohol-tobacco-exps/:autonomous_community", (req, res) => {
@@ -247,7 +245,6 @@ module.exports.register = function(app, db, initialData) {
       res.sendStatus(400); // bad request
     } else {
       console.info(`New PUT request to /alcohol-tobacco-exps/${autonomous_community}/${year} with data ` + JSON.stringify(updatedExpenditure, null, 2));
-      //if (!updatedExpenditure.autonomous_community || !updatedExpenditure.year || !updatedExpenditure.avg_expenditure_household || !updatedExpenditure.avg_expenditure_person || !updatedExpenditure.porcentual_distribution) {
       if (!checkResource(updatedExpenditure)) {
         console.warn("The expenditure " + JSON.stringify(updatedExpenditure, null, 2) + " is not well-formed, sending 422...");
         res.sendStatus(422); // unprocessable entity

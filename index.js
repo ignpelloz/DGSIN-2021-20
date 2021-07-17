@@ -13,7 +13,7 @@ var app = express(); // server
 // Middleware (dirname is PWD)
 app.use("/", express.static(path.join(__dirname, "public")));
 
-// Middleware: asure everywhere JSON's used for both req and res
+// Middleware: ensure JSON's used everywhere for both req and res
 app.use(bp.json())
 
 // Middleware for CORS headers (thanks to this the backend will be able to connect to frontend, w/o XSS issues)
@@ -42,13 +42,13 @@ MongoClient.connect(mdbURL, (err, client) => {
     });
   }
 
-  // Including the 8 methods at this point (otherwise, db's undefined bc of asynchronousnes)
+  // Including the methods at this point (otherwise, db's undefined bc of asynchronousnes)
   var api = require("./api");
   api.register(app,db, initialData);
 
 });
 
-// env variable or hardcoded
+// env variable (Heroku) and hardcoded (local)
 app.listen(process.env.PORT || 8080, () => {
   console.log("Server ready");
 }).on("error", (e) => {
